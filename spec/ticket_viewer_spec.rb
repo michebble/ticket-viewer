@@ -27,5 +27,7 @@ describe 'ticket_viewer' do
     ticket_viewer = Ticket_viewer.new(tickets)
     expect(ticket_viewer.list).to eq("Ticket id: 2, Subject 'velit eiusmod reprehenderit officia cupidatat' submitted by 365480592291 on 08 June 2018 at 04:45AM UTC\nTicket id: 3, Subject 'excepteur laborum ex occaecat Lorem' submitted by 365480592291 on 08 June 2018 at 04:45AM UTC")
   end
+
+  
 end
 
