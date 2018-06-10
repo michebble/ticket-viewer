@@ -1,3 +1,5 @@
+require 'ticket_viewer'
+
 describe 'ticket_viewer' do
   let(:tickets) { [{
       "id"=>2,
