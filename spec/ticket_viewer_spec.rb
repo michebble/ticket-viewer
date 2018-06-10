@@ -1,21 +1,29 @@
-describe 'Zendesk Ticket Viewer' do
+describe 'ticket_viewer' do
+  let(:tickets) { [{
+      "id"=>2,
+      "created_at"=>"2018-06-08T04:45:31Z",
+      "subject"=>"velit eiusmod reprehenderit officia cupidatat",
+      "description"=>
+      "Aute ex sunt culpa ex ea esse sint cupidatat aliqua ex consequat sit reprehenderit. Velit labore proident quis culpa ad duis adipisicing laboris voluptate velit incididunt minim consequat nulla. Laboris adipisicing reprehenderit minim tempor officia ullamco occaecat ut laborum.\n\nAliquip velit adipisicing exercitation irure aliqua qui. Commodo eu laborum cillum nostrud eu. Mollit duis qui non ea deserunt est est et officia ut excepteur Lorem pariatur deserunt.",
+      "status"=>"open",
+      "submitter_id"=>365480592291,
+      "tags"=>["est", "incididunt", "nisi"],
+    },
+    {
+      "id"=>3,
+      "created_at"=>"2018-06-08T04:45:31Z",
+      "subject"=>"excepteur laborum ex occaecat Lorem",
+      "description"=>
+      "Exercitation amet in laborum minim. Nulla et veniam laboris dolore fugiat aliqua et sit mollit. Dolor proident nulla mollit culpa in officia pariatur officia magna eu commodo duis.\n\nAliqua reprehenderit aute qui voluptate dolor deserunt enim aute tempor ad dolor fugiat. Mollit aliquip elit aliqua eiusmod. Ex et anim non exercitation consequat elit dolore excepteur. Aliqua reprehenderit non culpa sit consequat cupidatat elit.",
+      "status"=>"open",
+      "submitter_id"=>365480592291,
+      "tags"=>["amet", "labore", "voluptate"],
+    }] 
+  }
 
-  it 'should connect to Zendesk API'
-
-  it 'should request all the tickets for the account'
-
-  it 'should display tickets in a list'
-
-  it 'should display individual ticket details'
-
-  it 'should page through tickets when more than 25 are returned'
-
-  it 'should handle the API being unavailable'
-
-# * Connect to the Zendesk API
-# * Request all the tickets for your account
-# * Display them in a list
-# * Display individual ticket details
-# * Page through tickets when more than 25 are returned
-# *The Ticket Viewer should handle the API being unavailable
+  it 'should display tickets in a list' do
+    ticket_viewer = Ticket_viewer.new(tickets)
+    expect(ticket_viewer.list).to eq("Ticket id: 2, Subject 'velit eiusmod reprehenderit officia cupidatat' submitted by 365480592291 on 08 June 2018 at 04:45AM UTC\nTicket id: 3, Subject 'excepteur laborum ex occaecat Lorem' submitted by 365480592291 on 08 June 2018 at 04:45AM UTC")
+  end
 end
+
