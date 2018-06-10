@@ -28,6 +28,11 @@ describe 'ticket_viewer' do
     expect(ticket_viewer.list).to eq("Ticket id: 2, Subject 'velit eiusmod reprehenderit officia cupidatat' submitted by 365480592291 on 08 June 2018 at 04:45AM UTC\nTicket id: 3, Subject 'excepteur laborum ex occaecat Lorem' submitted by 365480592291 on 08 June 2018 at 04:45AM UTC")
   end
 
-  
+  it 'should display individual ticket details' do
+    ticket_viewer = Ticket_viewer.new(tickets)
+    expect(ticket_viewer.show(2)).to eq("Ticket id: 2, submitted by 365480592291 on 08 June 2018 at 04:45AM UTC\nSubject 'velit eiusmod reprehenderit officia cupidatat'\nAute ex sunt culpa ex ea esse sint cupidatat aliqua ex consequat sit reprehenderit. Velit labore proident quis culpa ad duis adipisicing laboris voluptate velit incididunt minim consequat nulla. Laboris adipisicing reprehenderit minim tempor officia ullamco occaecat ut laborum.\n\nAliquip velit adipisicing exercitation irure aliqua qui. Commodo eu laborum cillum nostrud eu. Mollit duis qui non ea deserunt est est et officia ut excepteur Lorem pariatur deserunt.")
+  end
+
+  it 'should page through tickets when more than 25 are returned' 
 end
 
