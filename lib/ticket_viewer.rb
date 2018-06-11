@@ -1,14 +1,29 @@
 require 'time'
 
 class Ticket_viewer
+  OFFSET = 25
   attr_reader :tickets
 
   def initialize(tickets)
     @tickets = tickets
+    @page = 0
+  end
+
+  def next
+    @page += 1
+    list
+  end
+
+  def previous
+    @page -= 1
+    list
   end
 
   def list
-    ticket_list = tickets.map do |ticket|
+    first = @page * OFFSET
+    last = first + OFFSET
+    page_tickets = tickets.slice(first...last)
+    ticket_list = page_tickets.map do |ticket|
       id = ticket["id"]
       subject = ticket["subject"]
       submitter = ticket["submitter_id"]

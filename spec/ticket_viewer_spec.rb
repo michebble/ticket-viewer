@@ -34,5 +34,6 @@ describe 'ticket_viewer' do
   end
 
   it 'should page through tickets when more than 25 are returned' 
+  # not sure how to write this test
 end
 
