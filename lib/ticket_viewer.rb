@@ -29,7 +29,7 @@ class Ticket_viewer
       submitter = ticket["submitter_id"]
       created_at = Time.parse(ticket["created_at"])
       date = created_at.strftime("%d %B %Y at %H:%M%p %Z")
-      "Ticket id: #{id}, Subject '#{subject}' submitted by #{submitter} on #{date}"
+      "Ticket id: #{id}, submitted by #{submitter} on #{date} subject '#{subject}'"
     end
     ticket_list.join("\n")
   end
