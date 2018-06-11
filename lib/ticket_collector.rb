@@ -8,9 +8,13 @@ class Ticket_collector
 
   def initialize
     response = call_api
-    @code = response.code 
-    body = JSON.parse(response.body)
-    @tickets = body["tickets"]
+    @code = response.code
+    if @code.empty?
+      raise 'Unable to connect to Zendesk API'
+    else
+      body = JSON.parse(response.body)
+      @tickets = body["tickets"]
+    end
   end
 
   def call_api

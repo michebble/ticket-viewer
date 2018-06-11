@@ -4,11 +4,11 @@ describe 'Zendesk Ticket Viewer' do
 
   # it 'should request all the tickets for the account'
 
-  it 'should display tickets in a list'
+  # it 'should display tickets in a list'
 
-  it 'should display individual ticket details'
+  # it 'should display individual ticket details'
 
-  it 'should page through tickets when more than 25 are returned'
+  # it 'should page through tickets when more than 25 are returned'
 
   it 'should handle the API being unavailable'
 
