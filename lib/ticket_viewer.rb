@@ -6,16 +6,17 @@ class Ticket_viewer
 
   def initialize(tickets)
     @tickets = tickets
+    @last_page = (tickets.length/OFFSET)-1
     @page = 0
   end
 
   def next
-    @page += 1
+    @page == @last_page ? puts("No more pages\n") : @page += 1
     list
   end
 
   def previous
-    @page -= 1
+    @page == 0 ? puts("No more pages\n") : @page -= 1
     list
   end
 
