@@ -12,7 +12,11 @@ class Interface
       action = instruction.downcase
       message = "\nEnter ticket id to view ticket,\nEnter 'next' or 'previous' to change page,\nEnter 'quit' to exit viewer."
     end
-    puts @viewer.send(action, *id)
-    puts message
+    begin
+      puts @viewer.send(action, *id)
+      puts message
+    rescue
+      puts "#{action} is an unknown command"
+    end
   end
 end
