@@ -16,11 +16,12 @@ class Ticket_viewer
   end
 
   def previous
-    @current_page == 0 ? page_limit : @current_page -= 1
+    @current_page == 0 ? page_limit : @current_page -= 1 
     list
   end
 
   def list
+    clear_screen
     first = @current_page * OFFSET
     last = first + OFFSET
     page_tickets = tickets.slice(first...last)
@@ -48,5 +49,9 @@ class Ticket_viewer
 
   def page_limit
     puts("No more pages\n")
+  end
+
+  def clear_screen
+    system "clear" 
   end
 end
