@@ -16,7 +16,7 @@ class Ticket_viewer
   end
 
   def previous
-    @current_page == 0 ? page_limit : @current_page -= 1 
+    @current_page == 0 ? page_limit : @current_page -= 1  
     list
   end
 
@@ -37,6 +37,7 @@ class Ticket_viewer
   end
 
   def show(ticket_id)
+    clear_screen
     current_ticket = tickets.find {|ticket| ticket["id"] == ticket_id }
     id = current_ticket["id"]
     subject = current_ticket["subject"]
