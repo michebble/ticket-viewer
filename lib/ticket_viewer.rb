@@ -22,10 +22,8 @@ class Ticket_viewer
 
   def list
     clear_screen
-    first = @current_page * OFFSET
-    last = first + OFFSET
-    page_tickets = tickets.slice(first...last)
-    ticket_list = page_tickets.map do |ticket|
+    ticket_range = choose_tickets
+    ticket_list = ticket_range.map do |ticket|
       id = ticket["id"]
       subject = ticket["subject"]
       submitter = ticket["submitter_id"]
@@ -48,11 +46,18 @@ class Ticket_viewer
     "Ticket id: #{id}, submitted by #{submitter} on #{date}\nSubject '#{subject}'\n#{description}"
   end
 
+  private
   def page_limit
     puts("No more pages\n")
   end
 
   def clear_screen
     system "clear" 
+  end
+
+  def choose_tickets
+    first_ticket = @current_page * OFFSET
+    last_ticket = first_ticket + OFFSET
+    tickets.slice(first_ticket...last_ticket)
   end
 end
