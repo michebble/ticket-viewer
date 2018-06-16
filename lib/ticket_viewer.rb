@@ -6,24 +6,24 @@ class Ticket_viewer
 
   def initialize(tickets)
     @tickets = tickets
-    @page = 0
+    @last_page = (tickets.length/OFFSET)-1
+    @current_page = 0
   end
 
   def next
-    @page += 1
+    @current_page == @last_page ? page_limit : @current_page += 1
     list
   end
 
   def previous
-    @page -= 1
+    @current_page == 0 ? page_limit : @current_page -= 1  
     list
   end
 
   def list
-    first = @page * OFFSET
-    last = first + OFFSET
-    page_tickets = tickets.slice(first...last)
-    ticket_list = page_tickets.map do |ticket|
+    clear_screen
+    ticket_range = choose_tickets
+    ticket_list = ticket_range.map do |ticket|
       id = ticket["id"]
       subject = ticket["subject"]
       submitter = ticket["submitter_id"]
@@ -35,6 +35,7 @@ class Ticket_viewer
   end
 
   def show(ticket_id)
+    clear_screen
     current_ticket = tickets.find {|ticket| ticket["id"] == ticket_id }
     id = current_ticket["id"]
     subject = current_ticket["subject"]
@@ -43,5 +44,20 @@ class Ticket_viewer
     created_at = Time.parse(current_ticket["created_at"])
     date = created_at.strftime("%d %B %Y at %H:%M%p %Z")
     "Ticket id: #{id}, submitted by #{submitter} on #{date}\nSubject '#{subject}'\n#{description}"
+  end
+
+  private
+  def page_limit
+    puts("No more pages\n")
+  end
+
+  def clear_screen
+    system "clear" 
+  end
+
+  def choose_tickets
+    first_ticket = @current_page * OFFSET
+    last_ticket = first_ticket + OFFSET
+    tickets.slice(first_ticket...last_ticket)
   end
 end
