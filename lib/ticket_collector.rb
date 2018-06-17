@@ -1,27 +1,33 @@
-require 'net/http'
-require 'uri'
-require 'json'
+require 'httparty'
+require 'pry'
 
 class Ticket_collector
   attr_reader :code
   attr_reader :tickets
 
-  def initialize
-    response = call_api
-    @code = response.code
-    body = JSON.parse(response.body)
-    @tickets = body["tickets"]
+  def initialize(basic_auth)
+    @basic_auth = basic_auth
+    @tickets = return_all_tickets
   end
 
-  def call_api
-    uri = URI.parse("https://michebble.zendesk.com/api/v2/tickets.json")
-    request = Net::HTTP::Get.new(uri)
-    request.basic_auth("hebble.michael@gmail.com", "happypath")
-    req_options = {
-      use_ssl: uri.scheme == "https"
-    }
-    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-      http.request(request)
+  def call_api(page_num)
+    url = "https://michebble.zendesk.com/api/v2/tickets.json?page=" + page_num.to_s
+    begin
+      HTTParty.get(url, basic_auth: @basic_auth)
+    rescue StandardError
+      { code => false }
     end
+  end
+
+  def return_all_tickets
+    collected_tickets = Array.new
+    page_num = 1
+    loop do
+      response = call_api(page_num)
+      binding.pry
+      response.code == 200 ? collected_tickets.push(response["tickets"]).flatten! : raise("ConectionError")
+      collected_tickets.length == response["count"] ? break : page_num += 1
+    end
+    collected_tickets
   end
 end
