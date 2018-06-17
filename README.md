@@ -50,7 +50,8 @@ $ rspec
 $ ruby app.rb
 ```
 
+The app will automatically call the api and request all tickets, then display the first 25 tickets in a list. List pages can be changed by entering `next` and `previous`. Individual tickets can be viewed by entering their id number, i.e `2`. Entering `list` will return to the current list page. Entering `quit` will exit the app.
+
 ## Future improvements
-* Add error handling.
-* Improve pagination.
+* improve error handling.
 * Pretty up interface.
