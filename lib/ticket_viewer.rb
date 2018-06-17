@@ -6,7 +6,7 @@ class Ticket_viewer
 
   def initialize(tickets)
     @tickets = tickets
-    @last_page = (tickets.length/OFFSET)-1
+    @last_page = (tickets.length/OFFSET.to_f).ceil-1
     @current_page = 0
   end
 
