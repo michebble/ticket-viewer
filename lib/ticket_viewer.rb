@@ -21,7 +21,6 @@ class Ticket_viewer
   end
 
   def list
-    clear_screen
     ticket_range = choose_tickets
     ticket_list = ticket_range.map do |ticket|
       id = ticket["id"]
@@ -35,7 +34,6 @@ class Ticket_viewer
   end
 
   def show(ticket_id)
-    clear_screen
     current_ticket = tickets.find {|ticket| ticket["id"] == ticket_id }
     id = current_ticket["id"]
     subject = current_ticket["subject"]
@@ -49,10 +47,6 @@ class Ticket_viewer
   private
   def page_limit
     puts("No more pages\n")
-  end
-
-  def clear_screen
-    system "clear" 
   end
 
   def choose_tickets

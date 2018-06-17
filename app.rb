@@ -15,10 +15,9 @@ loop do
   if input == 'quit'
     break
   else
+    interface.clear_screen
     interface.execute(input)
   end
 end
 
 puts "\nThank you for using the ticket viewer"
-
-
