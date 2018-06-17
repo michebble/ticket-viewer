@@ -1,5 +1,4 @@
 require 'httparty'
-require 'pry'
 
 class Ticket_collector
   attr_reader :code
@@ -24,7 +23,6 @@ class Ticket_collector
     page_num = 1
     loop do
       response = call_api(page_num)
-      binding.pry
       response.code == 200 ? collected_tickets.push(response["tickets"]).flatten! : raise("ConectionError")
       collected_tickets.length == response["count"] ? break : page_num += 1
     end
