@@ -20,8 +20,12 @@ class Ticket_collector
     req_options = {
       use_ssl: uri.scheme == "https"
     }
-    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-      http.request(request)
+    begin
+      response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+        http.request(request)
+      end
+    rescue
+      puts "Could not connect to server at this time"
     end
   end
 end
