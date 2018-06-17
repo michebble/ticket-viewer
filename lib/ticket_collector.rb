@@ -1,6 +1,4 @@
-require 'net/http'
-require 'uri'
-require 'json'
+require 'httparty'
 
 class Ticket_collector
   attr_reader :code
@@ -9,23 +7,17 @@ class Ticket_collector
   def initialize
     response = call_api
     @code = response.code
-    body = JSON.parse(response.body)
+    body = response.parsed_response
     @tickets = body["tickets"]
   end
 
   def call_api
-    uri = URI.parse("https://michebble.zendesk.com/api/v2/tickets.json")
-    request = Net::HTTP::Get.new(uri)
-    request.basic_auth("hebble.michael@gmail.com", "happypath")
-    req_options = {
-      use_ssl: uri.scheme == "https"
-    }
+    url = "https://michebble.zendesk.com/api/v2/tickets.json"
+    basic_auth = {username: "hebble.michael@gmail.com", password: "happypath"}
     begin
-      response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-        http.request(request)
-      end
+      HTTParty.get(url, basic_auth: basic_auth)
     rescue
-      response = nil
+      nil
     end
   end
 end
