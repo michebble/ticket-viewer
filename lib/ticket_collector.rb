@@ -25,7 +25,7 @@ class Ticket_collector
         http.request(request)
       end
     rescue
-      puts "Could not connect to server at this time"
+      response = nil
     end
   end
 end
